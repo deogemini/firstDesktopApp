@@ -1,5 +1,6 @@
 const fs = require('fs');
 const {app, BrowserWindow, dialog} = require('electron');
+const { title } = require('process');
 //in order to play tih file system electron comes with function caled dialog
 //to  solve garbagecollection = null
 let mainWindow = null;
@@ -40,9 +41,36 @@ exports.getFileFromUser = () => {
     openFile(file);
 };
 
+//saving the cuurent file
+exports.saveMarkdown = (file, content) => {
+    if(!file) {
+        file = dialog.showSaveDialog({
+            title: 'Save Markdown',
+            defaultPath: app.getPath('desktop'),
+
+            filters:[
+                {
+                    name: 'Makrdown Files',
+                    extensions: ['md', 'markdown', 'mdown' , 'marcdown' ],
+                },
+            ],
+
+        });
+    }
+
+    if(!file) return;
+
+
+    fs.writeFileSync(file, content );
+
+};
+
 
 function openFile(file){
     const content = fs.readFileSync(file).toString();
+
+    // to add file to recent
+    app.addRecentDocument(file);
     // console.log("content",mainWindow);
     mainWindow.webContents.send('file-opened', file, content);
 
