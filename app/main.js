@@ -85,7 +85,7 @@ exports.saveHtml =  content => {
 };
 
 
-function openFile(file){
+const openFile = (exports.openFile = file => {
     const content = fs.readFileSync(file).toString();
 
     // to add file to recent
@@ -93,4 +93,4 @@ function openFile(file){
     // console.log("content",mainWindow);
     mainWindow.webContents.send('file-opened', file, content);
 
-}
+});
