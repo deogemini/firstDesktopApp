@@ -1,7 +1,7 @@
 const path = require('path');
 const marked = require('marked');
 //require doesnot exit in chrome but it will since we are using electron
-const {remote,  ipcRenderer} = require('electron');
+const {remote,  ipcRenderer, shell} = require('electron');
 
 let filePath = null;
 let originalContent = '';
@@ -35,6 +35,9 @@ const updateUserInterface = isEdited => {
 
   if(filePath)currentWindow.setRepresentedFilename(filePath);
    currentWindow.setDocumentEdited(isEdited);
+
+   showFileButton.disabled = !filePath;
+   openInDefaultButton.disabled = !filePath;
 
   saveMarkdownButton.disabled = !isEdited;
   revertButton.disabled = !isEdited;
@@ -70,6 +73,16 @@ saveMarkdownButton.addEventListener('click', () =>
 saveHtmlButton.addEventListener('click', () =>
 {
   mainProcess.saveHtml(htmlView.innerHTML);
+});
+
+//---show file loacation---//
+showFileButton.addEventListener('click', () =>{
+  if(!filePath){
+    return alert('nope');
+
+  }
+
+  shell.showItemInFolder(filePath);
 });
 
 ipcRenderer.on('file-opened', (event,file, content ) => {
