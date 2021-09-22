@@ -82,7 +82,18 @@ showFileButton.addEventListener('click', () =>{
 
   }
 
+  
   shell.showItemInFolder(filePath);
+});
+
+//---open in default application---///
+openInDefaultButton.addEventListener('click', () => {
+  if(!filePath){
+    return alert('nope');
+
+  }
+  shell.openItem(filePath);
+
 });
 
 ipcRenderer.on('file-opened', (event,file, content ) => {
