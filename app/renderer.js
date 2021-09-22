@@ -50,6 +50,11 @@ markdownView.addEventListener('keyup', event => {
   updateUserInterface( currentContent !== originalContent);
 });
 
+htmlView.addEventListener('keyup', event => {
+  const currentContent = event.target.value;
+  render
+});
+
 openFileButton.addEventListener('click', () => {
   mainProcess.getFileFromUser();
   // alert('You clicked he open file');
@@ -61,7 +66,11 @@ saveMarkdownButton.addEventListener('click', () =>
   mainProcess.saveMarkdown(filePath, markdownView.value);  
 
 });
-//-------------------------////
+//----------save the current html---------------////
+saveHtmlButton.addEventListener('click', () =>
+{
+  mainProcess.saveHtml(htmlView.innerHTML);
+});
 
 ipcRenderer.on('file-opened', (event,file, content ) => {
   filePath = file;

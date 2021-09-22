@@ -20,7 +20,7 @@ app.on('ready', () => {
 
 //function to fetch file
 exports.getFileFromUser = () => {
-    const files = dialog.showOpenDialog({
+    const files = dialog.showOpenDialog(mainWindow,{
         properties: ['openFile'],
         buttonLabel: 'OpenFile', //this will not seen on mac Os
         title: 'Oped Fire Sale Document',
@@ -44,7 +44,7 @@ exports.getFileFromUser = () => {
 //saving the cuurent file
 exports.saveMarkdown = (file, content) => {
     if(!file) {
-        file = dialog.showSaveDialog({
+        file = dialog.showSaveDialog(mainWindow,{
             title: 'Save Markdown',
             defaultPath: app.getPath('desktop'),
 
@@ -63,6 +63,25 @@ exports.saveMarkdown = (file, content) => {
 
     fs.writeFileSync(file, content );
 
+};
+
+//save html
+exports.saveHtml =  content => {
+    const file = dialog.showSaveDialog(mainWindow,{
+            title: 'Save Html',
+            defaultPath: app.getPath('desktop'),
+
+            filters:[
+                {
+                    name: 'Html files',
+                    extensions: ['html'],
+                }
+            ]
+
+        });
+    
+    if(!file) return;
+    fs.writeFileSync(file, content );
 };
 
 
