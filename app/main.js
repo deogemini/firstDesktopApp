@@ -1,5 +1,5 @@
 const fs = require('fs');
-const {app, BrowserWindow, dialog} = require('electron');
+const {app, BrowserWindow, dialog, Menu} = require('electron');
 const { title } = require('process');
 //in order to play tih file system electron comes with function caled dialog
 //to  solve garbagecollection = null
@@ -8,9 +8,10 @@ let mainWindow = null;
 app.on('ready', () => {
     //first screem opened main window
     mainWindow = new BrowserWindow(); 
+
+    //to set the application menu 
+    Menu.setApplicationMenu(applicationMenu);
     //load the html
-
-
     mainWindow.loadFile(`${__dirname}/index.html`);
 
     // mainWindow.once('ready-to-show', () => {
@@ -94,3 +95,41 @@ const openFile = (exports.openFile = file => {
     mainWindow.webContents.send('file-opened', file, content);
 
 });
+
+//adding default application Menu
+const template = [
+    {
+        label: 'File',
+        submenu: [
+        {
+            label: "Exit",
+            click(){
+                app.quit();
+            }
+        }
+
+        ]
+    }
+
+];
+// to enable application menu to work  well in macos
+if(process.platform  === "darwin"){
+    const applicationName = "Fire Sale";
+    template.unshift({
+        label: applicationName,
+        submenu: [
+            {
+                label:"About ${applicationName}",
+
+            },
+            {
+                label: "Quit ${applicationName}",
+            },
+
+        ],
+
+    });
+}
+const applicationMenu = Menu.buildFromTemplate(template);
+
+//to set as an applicationMenu
