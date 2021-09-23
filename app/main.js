@@ -98,6 +98,7 @@ const openFile = (exports.openFile = file => {
 
 //adding default application Menu
 const template = [
+
     {
         label: 'File',
         submenu: [
@@ -106,7 +107,16 @@ const template = [
             click(){
                 app.quit();
             }
+        },
+        {
+            label: "Copy",
+            role: "copy",
+        },
+        {
+            label: "Paste",
+            role: "paste",
         }
+      
 
         ]
     }
