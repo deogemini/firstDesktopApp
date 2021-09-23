@@ -103,10 +103,8 @@ const template = [
         label: 'File',
         submenu: [
         {
-            label: "Exit",
-            click(){
-                app.quit();
-            }
+            label: "Open File",
+            accelerator:"CommandOrControl +0"
         },
         {
             label: "Copy",
@@ -115,7 +113,13 @@ const template = [
         {
             label: "Paste",
             role: "paste",
-        }
+        },
+        {
+            label: "Exit",
+            click(){
+                app.quit();
+            }
+        },
       
 
         ]
