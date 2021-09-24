@@ -70,10 +70,12 @@ saveMarkdownButton.addEventListener('click', () =>
 
 });
 //----------save the current html---------------////
-saveHtmlButton.addEventListener('click', () =>
-{
+const saveHtml = () => {
   mainProcess.saveHtml(htmlView.innerHTML);
-});
+};
+saveHtmlButton.addEventListener('click', saveHtml);
+
+ipcRenderer.on('save-html', saveHtml);
 
 //---show file loacation---//
 showFileButton.addEventListener('click', () =>{

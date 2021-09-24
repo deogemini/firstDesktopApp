@@ -104,15 +104,36 @@ const template = [
         submenu: [
         {
             label: "Open File",
-            accelerator:"CommandOrControl +0"
+            accelerator:"CommandOrControl +0",
+            click(){
+                mainWindow.webContents.send('open-file');
+
+            },
         },
         {
             label: "Copy",
-            role: "copy",
+            accelerator:"CommandOrControl +C",
+            click(){
+                mainWindow.webContents.send('copy');
+
+            },
         },
         {
             label: "Paste",
-            role: "paste",
+            accelerator: "CommandOrControl + P",
+            click(){
+                mainWindow.webContents.send('paste');
+
+            },
+        },
+        {
+            label: "Save Html",
+            accelerator:"CommandOrControl +H",
+            click(){
+                mainWindow.webContents.send('save-html');
+
+            },
+            
         },
         {
             label: "Exit",
